@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MalikP.TFS.IterationCreator", "MalikP.TFS.IterationCreator\MalikP.TFS.IterationCreator.csproj", "{293180E8-4D8B-404D-90AC-231D32B07EBB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MalikP.TFS.Automation.Iteration", "MalikP.TFS.Automation.Iteration\MalikP.TFS.Automation.Iteration.csproj", "{DD4EA737-EE62-419F-AF5A-0B51F723AFF1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MalikP.TFS.IterationCreator.Defaults", "MalikP.TFS.IterationCreator.Defaults\MalikP.TFS.IterationCreator.Defaults.csproj", "{B3C741CE-F46E-4A01-8369-3F124FC990E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MalikP.TFS.ExecutionConsole", "MalikP.TFS.ExecutionConsole\MalikP.TFS.ExecutionConsole.csproj", "{4D1DCDB5-6954-405C-8BF6-4CAE2613BD97}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MalikP.Core.Interfaces", "MalikP.Core.Interfaces\MalikP.Core.Interfaces.csproj", "{D1B24A42-0034-46CE-B9CC-03AE745BC2D7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MalikP.TFS.Automation", "MalikP.TFS.Automation\MalikP.TFS.Automation.csproj", "{1CEB5744-9A7E-4641-9950-ACA3A56F7FCF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{293180E8-4D8B-404D-90AC-231D32B07EBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{293180E8-4D8B-404D-90AC-231D32B07EBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{293180E8-4D8B-404D-90AC-231D32B07EBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{293180E8-4D8B-404D-90AC-231D32B07EBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD4EA737-EE62-419F-AF5A-0B51F723AFF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD4EA737-EE62-419F-AF5A-0B51F723AFF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD4EA737-EE62-419F-AF5A-0B51F723AFF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD4EA737-EE62-419F-AF5A-0B51F723AFF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3C741CE-F46E-4A01-8369-3F124FC990E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3C741CE-F46E-4A01-8369-3F124FC990E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3C741CE-F46E-4A01-8369-3F124FC990E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3C741CE-F46E-4A01-8369-3F124FC990E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D1DCDB5-6954-405C-8BF6-4CAE2613BD97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D1DCDB5-6954-405C-8BF6-4CAE2613BD97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D1DCDB5-6954-405C-8BF6-4CAE2613BD97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D1DCDB5-6954-405C-8BF6-4CAE2613BD97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1B24A42-0034-46CE-B9CC-03AE745BC2D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1B24A42-0034-46CE-B9CC-03AE745BC2D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1B24A42-0034-46CE-B9CC-03AE745BC2D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1B24A42-0034-46CE-B9CC-03AE745BC2D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CEB5744-9A7E-4641-9950-ACA3A56F7FCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CEB5744-9A7E-4641-9950-ACA3A56F7FCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CEB5744-9A7E-4641-9950-ACA3A56F7FCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CEB5744-9A7E-4641-9950-ACA3A56F7FCF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4D1DCDB5-6954-405C-8BF6-4CAE2613BD97}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MalikP.TFS.ExecutionConsole</RootNamespace>
+    <AssemblyName>MalikP.TFS.ExecutionConsole</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="MalikP.TFS.ExecutionConsole.licenseheader" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MalikP.Core.Interfaces\MalikP.Core.Interfaces.csproj">
+      <Project>{d1b24a42-0034-46ce-b9cc-03ae745bc2d7}</Project>
+      <Name>MalikP.Core.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MalikP.TFS.Automation\MalikP.TFS.Automation.csproj">
+      <Project>{1ceb5744-9a7e-4641-9950-aca3a56f7fcf}</Project>
+      <Name>MalikP.TFS.Automation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MalikP.TFS.IterationCreator.Defaults\MalikP.TFS.IterationCreator.Defaults.csproj">
+      <Project>{b3c741ce-f46e-4a01-8369-3f124fc990e7}</Project>
+      <Name>MalikP.TFS.IterationCreator.Defaults</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MalikP.TFS.IterationCreator\MalikP.TFS.IterationCreator.csproj">
+      <Project>{293180e8-4d8b-404d-90ac-231d32b07ebb}</Project>
+      <Name>MalikP.TFS.IterationCreator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MalikP.TFS.Automation.Iteration\MalikP.TFS.Automation.Iteration.csproj">
+      <Project>{dd4ea737-ee62-419f-af5a-0b51f723aff1}</Project>
+      <Name>MalikP.TFS.Automation.Iteration</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
