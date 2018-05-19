@@ -19,18 +19,12 @@
 // </copyright>
 //-------------------------------------------------------------------------------------------------
 
-using MalikP.Core.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace MalikP.Core.Interfaces
 {
     public interface INameGenerator : IGenerator
     {
         string GetName();
+
         string GetLastName();
     }
 }

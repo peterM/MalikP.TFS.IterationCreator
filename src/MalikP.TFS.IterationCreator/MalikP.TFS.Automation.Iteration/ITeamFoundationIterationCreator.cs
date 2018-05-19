@@ -19,18 +19,12 @@
 // </copyright>
 //-------------------------------------------------------------------------------------------------
 
-using System;
-using System.Linq;
-using System.Collections.Generic;
-using MalikP.Core.Interfaces;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace MalikP.TFS.Automation.Iteration
 {
     public interface ITeamFoundationIterationCreator
     {
         bool IsInitialized { get; }
+
         void Process(ITeamFoundationIterationDataProvider provider);
     }
 }

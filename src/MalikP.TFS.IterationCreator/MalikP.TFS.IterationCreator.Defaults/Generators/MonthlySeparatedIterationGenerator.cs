@@ -20,11 +20,6 @@
 //-------------------------------------------------------------------------------------------------
 
 using System;
-using System.Linq;
-using System.Collections.Generic;
-using MalikP.TFS.Automation.Iteration;
-using System.Text;
-using System.Threading.Tasks;
 using System.Globalization;
 
 namespace MalikP.TFS.IterationCreator.Defaults.Generators
@@ -35,6 +30,14 @@ namespace MalikP.TFS.IterationCreator.Defaults.Generators
 
         public MonthlySeparatedIterationGenerator() { }
 
+        public override bool IsValid => CurrentMonth > 0 && CurrentMonth <= 12;
+
+        public override DateTime? IterationEndDate => new DateTime(Year, CurrentMonth, GetDaysInMonth());
+
+        public override DateTime? IterationStartDate => new DateTime(Year, CurrentMonth, 1);
+
+        protected int CurrentMonth { get; private set; }
+
         public override string GetName()
         {
             var name = new DateTime(Year, CurrentMonth, 1).ToString("MMMM", CultureInfo.InvariantCulture);
@@ -42,46 +45,10 @@ namespace MalikP.TFS.IterationCreator.Defaults.Generators
             return name;
         }
 
-        public override bool IsValid
-        {
-            get
-            {
-                return CurrentMonth > 0 && CurrentMonth <= 12;
-            }
-        }
+        public override void Reset() => CurrentMonth = 0;
 
-        public override DateTime? IterationEndDate
-        {
-            get
-            {
-                var daysInMonth = GetDaysInMonth();
-                return new DateTime(Year, CurrentMonth, daysInMonth);
-            }
-        }
+        protected override void GenerateInternal() => CurrentMonth++;
 
-        protected int GetDaysInMonth()
-        {
-            return DateTime.DaysInMonth(Year, CurrentMonth);
-        }
-
-        public override DateTime? IterationStartDate
-        {
-            get
-            {
-                return new DateTime(Year, CurrentMonth, 1);
-            }
-        }
-        protected int CurrentMonth { get; private set; }
-
-
-        protected override void GenerateInternal()
-        {
-            CurrentMonth++;
-        }
-
-        public override void Reset()
-        {
-            CurrentMonth = 0;
-        }
+        protected int GetDaysInMonth() => DateTime.DaysInMonth(Year, CurrentMonth);
     }
 }

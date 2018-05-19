@@ -19,31 +19,21 @@
 // </copyright>
 //-------------------------------------------------------------------------------------------------
 
-using System;
-using System.Linq;
 using System.Collections.Generic;
-using MalikP.TFS.IterationCreator.Defaults;
-using MalikP.TFS.Automation.Iteration;
-using Microsoft.TeamFoundation.Client;
-using Microsoft.TeamFoundation.Framework.Client;
-using Microsoft.TeamFoundation.Server;
-using Microsoft.TeamFoundation.VersionControl.Client;
-using Microsoft.TeamFoundation.WorkItemTracking.Client;
-using System.IO;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using MalikP.TFS.Automation;
-using System.Runtime.CompilerServices;
-using Microsoft.TeamFoundation.ProcessConfiguration.Client;
 
 namespace MalikP.TFS.IterationCreator
 {
-
     public class IterationCollector
     {
-        public List<string> IterationsToAssign = new List<string>();
-        public List<string> IterationsToUnAssign = new List<string>();
+        public IterationCollector()
+        {
+            IterationsToAssign = new List<string>();
+            IterationsToUnAssign = new List<string>();
+        }
+
+        public List<string> IterationsToAssign { get; }
+
+        public List<string> IterationsToUnAssign { get; }
 
         public void Clear()
         {
@@ -51,5 +41,4 @@ namespace MalikP.TFS.IterationCreator
             IterationsToUnAssign.Clear();
         }
     }
-
 }

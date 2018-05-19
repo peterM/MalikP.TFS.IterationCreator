@@ -20,11 +20,6 @@
 //-------------------------------------------------------------------------------------------------
 
 using MalikP.Core.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MalikP.TFS.Automation.Iteration
 {
@@ -33,12 +28,15 @@ namespace MalikP.TFS.Automation.Iteration
         ITeamFoundationIterationDataProvider ParentDataProvider { get; }
 
         ITeamFoundationIterationGenerator IterationGenerator { get; }
+
         INameGenerator NameGenerator { get; }
 
         IPeriodGenerator PeriodGenerator { get; }
 
         ITeamFoundationIterationDataProvider MostParentProvider();
+
         ITeamFoundationIterationDataProvider ChildDataProvider { get; }
+
         void SetChild(ITeamFoundationIterationDataProvider child);
     }
 }

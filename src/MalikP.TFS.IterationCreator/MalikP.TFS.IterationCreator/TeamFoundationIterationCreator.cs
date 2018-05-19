@@ -19,44 +19,23 @@
 // </copyright>
 //-------------------------------------------------------------------------------------------------
 
-using MalikP.TFS.IterationCreator.Defaults;
 using MalikP.TFS.Automation.Iteration;
 using Microsoft.TeamFoundation.Client;
-using Microsoft.TeamFoundation.Framework.Client;
 using Microsoft.TeamFoundation.Server;
-using Microsoft.TeamFoundation.VersionControl.Client;
-using Microsoft.TeamFoundation.WorkItemTracking.Client;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using MalikP.TFS.Automation;
-using System.Runtime.CompilerServices;
 using Microsoft.TeamFoundation.ProcessConfiguration.Client;
 
 namespace MalikP.TFS.IterationCreator
 {
     public class TeamFoundationIterationCreator : ITeamFoundationIterationCreator, ITeamFoundationProjectNameGetter
     {
-        IterationCollector Collector { get; } = new IterationCollector();
-
         public const string Iteration = "Iteration";
+
         Uri CollectionUri;
-        TfsTeamProjectCollection TfsCollection { get; set; }
-        public string ProjectName => TeamProject.Name;
-        public bool IsInitialized { get; private set; }
-
-        protected ProjectInfo TeamProject { get; set; }
-
-        protected ICommonStructureService4 StructureService => TfsCollection.GetService<ICommonStructureService4>();
-
-        protected TfsTeamService TeamService => TfsCollection.GetService<TfsTeamService>();
-
-        protected TeamSettingsConfigurationService TeamSettingsService => TfsCollection.GetService<TeamSettingsConfigurationService>();
-
 
         public TeamFoundationIterationCreator(Uri tfsServerCollectionUri, string projectName)
         {
@@ -70,6 +49,33 @@ namespace MalikP.TFS.IterationCreator
 
                 BasePath = Path.Combine(ProjectName, Iteration);
             }
+        }
+
+        public bool IsInitialized { get; private set; }
+
+        public string ProjectName => TeamProject.Name;
+
+        protected string BasePath { get; set; }
+
+        protected ICommonStructureService4 StructureService => TfsCollection.GetService<ICommonStructureService4>();
+
+        protected ProjectInfo TeamProject { get; set; }
+
+        protected TfsTeamService TeamService => TfsCollection.GetService<TfsTeamService>();
+
+        protected TeamSettingsConfigurationService TeamSettingsService => TfsCollection.GetService<TeamSettingsConfigurationService>();
+
+        IterationCollector Collector { get; } = new IterationCollector();
+
+        TfsTeamProjectCollection TfsCollection { get; set; }
+
+        public IEnumerable<string> GetProjectNames() => StructureService.ListAllProjects()
+                                                                        .Select(d => d.Name)
+                                                                        .ToList();
+
+        public virtual void IndentBasePath(string name)
+        {
+            BasePath = Path.Combine(BasePath, name);
         }
 
         public void Initialize()
@@ -97,13 +103,22 @@ namespace MalikP.TFS.IterationCreator
                                                   .FirstOrDefault()
                                                   .TeamSettings;
 
-            var iterations = teamSettings.IterationPaths
-                                         .ToList();
+            List<string> iterations = teamSettings.IterationPaths
+                                                  .ToList();
 
             var iterationsToAdd = iterationsToAssign.Select(d => d.Replace($"\\{Iteration}", string.Empty))
                                                     .ToList();
             var iterationsToRemove = iterationsToUnassign.Select(d => d.Replace($"\\{Iteration}", string.Empty))
                                                          .ToList();
+
+            foreach (var item in iterationsToAdd)
+            {
+                var iterationsToRemoveByDefault = iterations.Where(iteration => iteration.StartsWith(item, StringComparison.CurrentCultureIgnoreCase))
+                                                            .ToList();
+                iterationsToRemoveByDefault.Remove(item);
+                iterationsToRemove.AddRange(iterationsToRemoveByDefault);
+            }
+
             var color = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.Green;
             iterationsToAdd.ForEach(it => Console.WriteLine($"Assigning iteration to Team - {selectedTeam.Name}: {it} "));
@@ -116,12 +131,7 @@ namespace MalikP.TFS.IterationCreator
             iterations = iterations.Distinct()
                                    .ToList();
 
-
-            iterationsToRemove.ForEach(iteration =>
-                              {
-                                  if (iterations.Contains(iteration))
-                                      iterations.Remove(iteration);
-                              });
+            iterationsToRemove.ForEach(iteration => IterationContains(iteration, iterations));
 
             teamSettings.IterationPaths = iterations.ToArray();
 
@@ -145,10 +155,20 @@ namespace MalikP.TFS.IterationCreator
             TeamSettingsService.SetTeamSettings(teamId, teamSettings);
         }
 
+        private static void IterationContains(string iteration, List<string> iterations)
+        {
+            if (iterations.Contains(iteration))
+            {
+                iterations.Remove(iteration);
+            }
+        }
+
         protected virtual void ProcessInternally(ITeamFoundationIterationDataProvider provider)
         {
             if (provider == null)
+            {
                 return;
+            }
 
             NodeInfo rootNode = null;
             while (provider.Generate())
@@ -206,19 +226,5 @@ namespace MalikP.TFS.IterationCreator
 
             ProcessInternally(provider.ChildDataProvider);
         }
-
-        public virtual void IndentBasePath(string name)
-        {
-            BasePath = Path.Combine(BasePath, name);
-        }
-
-        public IEnumerable<string> GetProjectNames()
-        {
-            return StructureService.ListAllProjects()
-                                   .Select(d => d.Name)
-                                   .ToList();
-        }
-
-        protected string BasePath { get; set; }
     }
 }

@@ -20,11 +20,7 @@
 //-------------------------------------------------------------------------------------------------
 
 using System;
-using System.Linq;
-using System.Collections.Generic;
 using MalikP.TFS.Automation.Iteration;
-using System.Text;
-using System.Threading.Tasks;
 using MalikP.Core.Interfaces;
 
 namespace MalikP.TFS.IterationCreator.Defaults.Generators
@@ -32,11 +28,15 @@ namespace MalikP.TFS.IterationCreator.Defaults.Generators
     public abstract class TeamFoundationIterationGeneratorBase : IResetable, INameGenerator, IPeriodGenerator, ITeamFoundationIterationGenerator, ITeamFoundationIterationUriUpdatable
     {
         protected TeamFoundationIterationGeneratorBase() { }
+
         public abstract bool IsValid { get; }
+
         public abstract DateTime? IterationEndDate { get; }
+
         public abstract DateTime? IterationStartDate { get; }
 
         protected TeamFoundationIteration Iteration { get; set; }
+
         protected String LastName { get; set; }
 
         public virtual bool Generate()
@@ -63,18 +63,17 @@ namespace MalikP.TFS.IterationCreator.Defaults.Generators
         }
 
         public virtual TeamFoundationIteration GetIteration() => Iteration;
+
         public abstract string GetLastName();
+
         public abstract string GetName();
+
         public abstract void Reset();
 
-        public void UpdateIterationUri(string uri)
-        {
-            Iteration.Uri = uri;
-        }
+        public void UpdateIterationUri(string uri) => Iteration.Uri = uri;
 
         protected virtual void BeforeNewGeneration(TeamFoundationIteration iteration)
         {
-
         }
 
         protected abstract void GenerateInternal();

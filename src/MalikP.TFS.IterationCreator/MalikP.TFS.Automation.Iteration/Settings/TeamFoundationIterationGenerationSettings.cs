@@ -19,12 +19,6 @@
 // </copyright>
 //-------------------------------------------------------------------------------------------------
 
-using System;
-using System.Linq;
-using System.Collections.Generic;
-using MalikP.Core.Interfaces;
-using System.Text;
-using System.Threading.Tasks;
 using MalikP.TFS.Automation.Settings;
 
 namespace MalikP.TFS.Automation.Iteration.Settings

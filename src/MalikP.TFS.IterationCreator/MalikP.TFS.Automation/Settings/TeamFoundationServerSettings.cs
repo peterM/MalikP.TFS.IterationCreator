@@ -20,18 +20,15 @@
 //-------------------------------------------------------------------------------------------------
 
 using MalikP.Core.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MalikP.TFS.Automation.Settings
 {
     public class TeamFoundationServerSettings : ISettings
     {
-        public string ServerUri { get; set; }
         public string ProjectCollectionName { get; set; }
+
         public string ProjectCollectionUri => $"{ServerUri}/{ProjectCollectionName}";
+
+        public string ServerUri { get; set; }
     }
 }

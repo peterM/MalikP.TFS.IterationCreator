@@ -19,7 +19,6 @@
 // </copyright>
 //-------------------------------------------------------------------------------------------------
 
-using System;
 using MalikP.TFS.Automation.Iteration;
 using MalikP.Core.Interfaces;
 
@@ -33,8 +32,8 @@ namespace MalikP.TFS.IterationCreator.Defaults.Providers
 
         public virtual bool IsValid => NameGenerator.IsValid && PeriodGenerator.IsValid;
 
-
         public ITeamFoundationIterationGenerator IterationGenerator { get; protected set; }
+
         public INameGenerator NameGenerator => IterationGenerator as INameGenerator;
 
         public ITeamFoundationIterationDataProvider ParentDataProvider { get; protected set; }
@@ -51,32 +50,19 @@ namespace MalikP.TFS.IterationCreator.Defaults.Providers
             var iteration = IterationGenerator.GetIteration();
 
             if (ChildDataProvider != null)
+            {
                 iteration.Assign = false;
+            }
 
             return iteration;
         }
 
-        public ITeamFoundationIterationDataProvider MostParentProvider()
-        {
-            if (ParentDataProvider != null)
-                return ParentDataProvider?.MostParentProvider();
+        public ITeamFoundationIterationDataProvider MostParentProvider() => ParentDataProvider != null ? ParentDataProvider?.MostParentProvider() : this;
 
-            return this;
-        }
+        public void Reset() => IterationGenerator.Reset();
 
-        public void Reset()
-        {
-            IterationGenerator.Reset();
-        }
+        public void SetChild(ITeamFoundationIterationDataProvider child) => ChildDataProvider = child;
 
-        public void SetChild(ITeamFoundationIterationDataProvider child)
-        {
-            ChildDataProvider = child;
-        }
-
-        public void UpdateIterationUri(string uri)
-        {
-            (IterationGenerator as ITeamFoundationIterationUriUpdatable)?.UpdateIterationUri(uri);
-        }
+        public void UpdateIterationUri(string uri) => (IterationGenerator as ITeamFoundationIterationUriUpdatable)?.UpdateIterationUri(uri);
     }
 }

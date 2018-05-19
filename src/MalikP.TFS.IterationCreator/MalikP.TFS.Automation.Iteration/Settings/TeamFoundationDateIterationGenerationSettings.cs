@@ -19,17 +19,11 @@
 // </copyright>
 //-------------------------------------------------------------------------------------------------
 
-using System;
-using System.Linq;
-using System.Collections.Generic;
-using MalikP.Core.Interfaces;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace MalikP.TFS.Automation.Iteration.Settings
 {
     public class TeamFoundationDateIterationGenerationSettings : TeamFoundationIterationGenerationSettings
     {
         public int TargetYear { get; set; }
+        public bool YearOnly { get; set; }
     }
 }

@@ -33,10 +33,17 @@ namespace MalikP.TFS.ExecutionConsole
 {
     public static class Program
     {
-        const string Command_Server = "-s:";
         const string Command_Collection = "-c:";
         const string Command_Project = "-p:";
+        const string Command_Server = "-s:";
         const string Command_TargetYear = "-t:";
+        const string Command_YearOnly = "-year-only";
+
+        static string ExampleAllProjectCommand => $"{Command_Project}ALL";
+        static string ExampleCollectionCommand => $"{Command_Collection}DefaultCollection";
+        static string ExampleProjectCommand => $"{Command_Project}MyProjectName";
+        static string ExampleServerCommand => $"{Command_Server}https://tfs.domain.com/tfs";
+        static string ExampleYearCommand => $"{Command_TargetYear}2017";
 
         public static void Main(string[] args)
         {
@@ -51,7 +58,7 @@ namespace MalikP.TFS.ExecutionConsole
                 ITeamFoundationIterationGenerator monthGenerator = new MonthlySeparatedIterationGenerator(year);
 
                 ITeamFoundationIterationDataProvider yearProvider = new TeamFoundationIterationProvider(yearGenerator, null);
-                ITeamFoundationIterationDataProvider monthProvider = new TeamFoundationIterationProvider(monthGenerator, yearProvider);
+                ITeamFoundationIterationDataProvider monthProvider = new TeamFoundationIterationProvider(monthGenerator, !settings.YearOnly ? yearProvider : null);
 
                 var projects = new List<string>();
 
@@ -73,7 +80,9 @@ namespace MalikP.TFS.ExecutionConsole
                         Console.WriteLine($"{Divider(131, '-')}");
                         creator = new TeamFoundationIterationCreator(uri, projectNameItem);
                         if (creator.IsInitialized)
+                        {
                             creator.Process(yearProvider);
+                        }
 
                         yearProvider.Reset();
                         monthProvider.Reset();
@@ -81,15 +90,17 @@ namespace MalikP.TFS.ExecutionConsole
                 }
             }
 
-                    Console.WriteLine();
-                    Console.WriteLine("Press any key to continue ...");
-                    Console.ReadKey();
+            Console.WriteLine();
+            Console.WriteLine("Press any key to continue ...");
+            Console.ReadKey();
         }
+
+        static string Divider(int count = 60, char divider = '-') => string.Empty.PadLeft(count, divider);
 
         private static TeamFoundationDateIterationGenerationSettings ParseArgs(string[] args)
         {
             TeamFoundationDateIterationGenerationSettings resultSettings = null;
-            if (args != null && args.Length == 4)
+            if (args != null && (args.Length == 4 || args.Length == 5))
             {
                 resultSettings = new TeamFoundationDateIterationGenerationSettings()
                 {
@@ -113,6 +124,10 @@ namespace MalikP.TFS.ExecutionConsole
                     else if (item.StartsWith(Command_TargetYear, StringComparison.InvariantCultureIgnoreCase))
                     {
                         resultSettings.TargetYear = int.Parse(item.Replace(Command_TargetYear, string.Empty));
+                    }
+                    else if (string.Equals(item, Command_YearOnly))
+                    {
+                        resultSettings.YearOnly = true;
                     }
                 }
             }
@@ -152,10 +167,16 @@ namespace MalikP.TFS.ExecutionConsole
             Console.WriteLine($"{"".PadLeft(10, ' ')}Example: '{ExampleServerCommand}'");
             Console.ForegroundColor = ConsoleColor.White;
 
+            Console.WriteLine($"To define variable 'YearOnly = True' use this argument: '{Command_YearOnly}'");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"{"".PadLeft(10, ' ')}Example: '{Command_YearOnly}'");
+            Console.ForegroundColor = ConsoleColor.White;
+
             Console.WriteLine($"{Divider(131, '-')}");
             Console.WriteLine($"Full command example:");
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"{"".PadLeft(10, ' ')} {typeof(Program).Namespace.Normalize()}.exe {ExampleServerCommand} {ExampleCollectionCommand} {ExampleProjectCommand} {ExampleYearCommand}");
+            Console.WriteLine($"{"".PadLeft(10, ' ')} {typeof(Program).Namespace.Normalize()}.exe {ExampleServerCommand} {ExampleCollectionCommand} {ExampleProjectCommand} {ExampleYearCommand} [{Command_YearOnly}]");
+            Console.WriteLine($"{"".PadLeft(10, ' ')} {typeof(Program).Namespace.Normalize()}.exe {ExampleServerCommand} {ExampleCollectionCommand} {ExampleAllProjectCommand} {ExampleYearCommand} [{Command_YearOnly}]");
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine($"{Divider(131, '-')}");
 
@@ -163,12 +184,5 @@ namespace MalikP.TFS.ExecutionConsole
 
             Console.ForegroundColor = foreColor;
         }
-
-        static string Divider(int count = 60, char divider = '-') => string.Empty.PadLeft(count, divider);
-        static string ExampleYearCommand => $"{Command_TargetYear}2017";
-        static string ExampleProjectCommand => $"{Command_Project}MyProjectName";
-        static string ExampleAllProjectCommand => $"{Command_Project}ALL";
-        static string ExampleCollectionCommand => $"{Command_Collection}DefaultCollection";
-        static string ExampleServerCommand => $"{Command_Server}https://tfs.domain.com/tfs";
     }
 }

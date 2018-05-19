@@ -20,20 +20,19 @@
 //-------------------------------------------------------------------------------------------------
 
 using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using MalikP.Core.Interfaces;
 
 namespace MalikP.TFS.Automation.Iteration
 {
     public class TeamFoundationIteration
     {
         public string Name { get; set; }
+
         public string Uri { get; set; }
+
         public DateTime? StartDate { get; set; }
+
         public DateTime? EndDate { get; set; }
+
         public bool Assign { get; set; }
     }
 }

@@ -19,14 +19,7 @@
 // </copyright>
 //-------------------------------------------------------------------------------------------------
 
-using System;
-using System.Linq;
-using System.Collections.Generic;
-using MalikP.TFS.IterationCreator.Defaults.Generators;
 using MalikP.TFS.Automation.Iteration;
-using System.Text;
-using System.Threading.Tasks;
-using MalikP.Core.Interfaces;
 
 namespace MalikP.TFS.IterationCreator.Defaults.Providers
 {
